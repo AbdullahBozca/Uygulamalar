@@ -14,7 +14,8 @@ public class Hasta {
         this.hastaDurumu = hastaDurumu;
         this.hastaAciliyet = hastaAciliyet;
     }
-    public Hasta(){
+
+    public Hasta() {
 
     }
 
