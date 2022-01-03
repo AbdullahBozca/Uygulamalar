@@ -36,12 +36,17 @@ public class Methodlar extends VeriBankasi {
                 break;
             case 2:
                 hastaListesi(hastaList);
+                menu();;
                 break;
             case 3:
                 cıkıs();
                 break;
             default:
         }
+    }
+
+    private static void hastaListele() {
+
     }
 
     private static void cıkıs() {
@@ -73,52 +78,61 @@ public class Methodlar extends VeriBankasi {
         Hasta hasta = new Hasta(++hastaNo, hastaAdi, hastaSadi, hastaDurumu, aciliyet);
         System.out.println(hasta);
         hastaList.add(hasta);
-        doktorAta(hastaDurumu, doktorList, hastaAdi,hastaSadi);
+        //doktorAta(hastaDurumu, doktorList, hasta);
+        System.out.println(hastaAdi+" "+hastaSadi+" doktoru : "+doktorAta2(hastaDurumu, doktorList, hastaAdi, hastaSadi));
 
     }
 
-
-
-    private static void doktorAta(String hastaDurumu, List<VeriBankasi> doktorList,String hastaAdi,String hastaSadi ) {
-
-        List<VeriBankasi> atananDoktorList = new ArrayList<VeriBankasi>();
+    private static List<VeriBankasi> doktorAta2(String hastaDurumu, List<VeriBankasi> doktorList, String hastaAdi, String hastaSadi) {
+        List<VeriBankasi> secilenDoktor=new ArrayList<>();
         if (hastaDurumu.contains("Allerji")) {
-           /*
-            atananDoktorList.add(doktorList.stream()
-                    .filter(t -> t.getDoktorUnvan().equals("Allergist")).collect(Collectors.toList()));
-
-
-            */
-            System.out.println(hastaAdi + " " + hastaSadi + " doktoru : " + doktorList.stream()
-                    .filter(t -> t.getDoktorUnvan().equals("Allergist")).collect(Collectors.toList()));
-        } else if (hastaDurumu.contains("Bas agrisi")) {
-            System.out.println(hastaAdi + " " + hastaSadi + " doktoru : " + doktorList.stream()
-                    .filter(t -> t.getDoktorUnvan().equals("Norolog")).collect(Collectors.toList()));
-        } else if (hastaDurumu.contains("Diabet")) {
-            System.out.println(hastaAdi + " " + hastaSadi + " doktoru : " + doktorList.stream()
-                    .filter(t -> t.getDoktorUnvan().equals("Genel cerrah")).collect(Collectors.toList()));
-        } else if (hastaDurumu.contains("Sogukalginligi")) {
-            System.out.println(hastaAdi + " " + hastaSadi + " doktoru : " + doktorList.stream()
-                    .filter(t -> t.getDoktorUnvan().equals("Cocuk doktoru")).collect(Collectors.toList()));
-        } else if (hastaDurumu.contains("Migren")) {
-            System.out.println(hastaAdi + " " + hastaSadi + " doktoru : " + doktorList.stream()
-                    .filter(t -> t.getDoktorUnvan().equals("Dahiliye")).collect(Collectors.toList()));
-        } else if (hastaDurumu.contains("Kalphastaliklari")) {
-            System.out.println(hastaAdi + " " + hastaSadi + " doktoru : " + doktorList.stream()
-                    .filter(t -> t.getDoktorUnvan().equals("Kardiolog")).collect(Collectors.toList()));
+            secilenDoktor= doktorList.stream().filter(t -> t.getDoktorUnvan().equals("Allergist")).collect(Collectors.toList());
+        }else if (hastaDurumu.contains("Bas agrisi")){
+            secilenDoktor=doktorList.stream().filter(t -> t.getDoktorUnvan().equals("Norolog")).collect(Collectors.toList());
+        }else if (hastaDurumu.contains("Diabet")){
+            secilenDoktor=doktorList.stream().filter(t -> t.getDoktorUnvan().equals("Genel cerrah")).collect(Collectors.toList());
+        }else if (hastaDurumu.contains("Sogukalginligi")){
+            secilenDoktor=doktorList.stream().filter(t -> t.getDoktorUnvan().equals("Cocuk doktoru")).collect(Collectors.toList());
+        }else if (hastaDurumu.contains("Migren")){
+            secilenDoktor=doktorList.stream().filter(t -> t.getDoktorUnvan().equals("Dahiliye")).collect(Collectors.toList());
+        }else if (hastaDurumu.contains("Kalphastaliklari")){
+            secilenDoktor=doktorList.stream().filter(t -> t.getDoktorUnvan().equals("Kardiolog")).collect(Collectors.toList());
         }
-
+        return secilenDoktor;
     }
 
+    /*
+        public static void doktorAta(String hastaDurumu, List<VeriBankasi> doktorList, Hasta hasta) {
+            if (hastaDurumu.contains("Allerji")) {
+                System.out.println(hasta.getHastaAdi() + " " + hasta.getHastaSadi() + " doktoru : " + doktorList.stream()
+                        .filter(t -> t.getDoktorUnvan().equals("Allergist")).collect(Collectors.toList()));
+            } else if (hastaDurumu.contains("Bas agrisi")) {
+                System.out.println(hasta.getHastaAdi() + " " + hasta.getHastaSadi() + " doktoru : " + doktorList.stream()
+                        .filter(t -> t.getDoktorUnvan().equals("Norolog")).collect(Collectors.toList()));
+            } else if (hastaDurumu.contains("Diabet")) {
+                System.out.println(hasta.getHastaAdi() + " " + hasta.getHastaSadi() + " doktoru : " + doktorList.stream()
+                        .filter(t -> t.getDoktorUnvan().equals("Genel cerrah")).collect(Collectors.toList()));
+            } else if (hastaDurumu.contains("Sogukalginligi")) {
+                System.out.println(hasta.getHastaAdi() + " " + hasta.getHastaSadi() + " doktoru : " + doktorList.stream()
+                        .filter(t -> t.getDoktorUnvan().equals("Cocuk doktoru")).collect(Collectors.toList()));
+            } else if (hastaDurumu.contains("Migren")) {
+                System.out.println(hasta.getHastaAdi() + " " + hasta.getHastaSadi() + " doktoru : " + doktorList.stream()
+                        .filter(t -> t.getDoktorUnvan().equals("Dahiliye")).collect(Collectors.toList()));
+            } else if (hastaDurumu.contains("Kalphastaliklari")) {
+                System.out.println(hasta.getHastaAdi() + " " + hasta.getHastaSadi() + " doktoru : " + doktorList.stream()
+                        .filter(t -> t.getDoktorUnvan().equals("Kardiolog")).collect(Collectors.toList()));
+            }
+
+        }
+    */
     public static void hastaDurumu(List<String> durumlar) {
         AtomicInteger i = new AtomicInteger();
         durumlar.stream().forEach(t -> System.out.println(i.incrementAndGet() + "-" + t));
-    }
 
+    }
     public static void hastaListesi(List<Hasta> hastaList) {
         hastaList.
-                stream().forEach(t -> System.out.println(t+doktorAta(t.getHastaDurumu(),doktorList,t.getHastaAdi(),t.getHastaSadi())));
-
+                stream().forEach(t -> System.out.println(t+"\n"+t.getHastaAdi()+" "+t.getHastaSadi()+" doktoru : "
+                        +doktorAta2(t.getHastaDurumu(),doktorList,t.getHastaAdi(),t.getHastaSadi())));
     }
-
 }
