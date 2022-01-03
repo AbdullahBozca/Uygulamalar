@@ -80,7 +80,15 @@ public class Methodlar extends VeriBankasi {
 
 
     private static void doktorAta(String hastaDurumu, List<VeriBankasi> doktorList,String hastaAdi,String hastaSadi ) {
+
+        List<VeriBankasi> atananDoktorList = new ArrayList<VeriBankasi>();
         if (hastaDurumu.contains("Allerji")) {
+           /*
+            atananDoktorList.add(doktorList.stream()
+                    .filter(t -> t.getDoktorUnvan().equals("Allergist")).collect(Collectors.toList()));
+
+
+            */
             System.out.println(hastaAdi + " " + hastaSadi + " doktoru : " + doktorList.stream()
                     .filter(t -> t.getDoktorUnvan().equals("Allergist")).collect(Collectors.toList()));
         } else if (hastaDurumu.contains("Bas agrisi")) {
