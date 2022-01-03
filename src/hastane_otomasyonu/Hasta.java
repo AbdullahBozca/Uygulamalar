@@ -1,5 +1,8 @@
 package hastane_otomasyonu;
 
+import java.util.List;
+import java.util.stream.Collector;
+
 public class Hasta {
     private int hastaNo;
     private String hastaAdi;
@@ -69,4 +72,6 @@ public class Hasta {
                 ", hastaAciliyet=" + hastaAciliyet +
                 '}';
     }
+
+
 }

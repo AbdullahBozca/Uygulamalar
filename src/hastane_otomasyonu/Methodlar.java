@@ -20,17 +20,24 @@ public class Methodlar extends VeriBankasi {
             Arrays.asList(doktor1, doktor2, doktor3, doktor4, doktor5, doktor6));
     static List<String> durumlar = new ArrayList<String>(
             Arrays.asList("Allerji", "Bas agrisi", "Diabet", "Sogukalginligi", "Migren", "Kalphastaliklari"));
+    static List<Hasta> hastaList = new ArrayList<Hasta>();
 
     public static void menu() {
 
-        System.out.println("====HASTANE OTOMASYONU====\n" + "1-HASTA GIRISI\n" + "2-ÇIKIŞ");
+        System.out.println("====HASTANE OTOMASYONU====\n" +
+                "1-HASTA GIRISI\n" +
+                "2-HASTA LİSTESİ\n" +
+                "3-ÇIKIŞ");
         int secim = scanner.nextInt();
         switch (secim) {
             case 1:
-                hastaGırısı();
+                hastaGirisi();
                 menu();
                 break;
             case 2:
+                hastaListesi(hastaList);
+                break;
+            case 3:
                 cıkıs();
                 break;
             default:
@@ -42,9 +49,9 @@ public class Methodlar extends VeriBankasi {
         System.out.println("İşlemleriniz yapıldı!!!");
     }
 
-    private static void hastaGırısı() {
+    private static void hastaGirisi() {
         System.out.println("Hastanın adını giriniz : ");
-        String hastaAdi = scanner.nextLine();
+        String hastaAdi = scanner.next();
         scanner.nextLine();
         System.out.println("Hastanın soyadını giriniz : ");
         String hastaSadi = scanner.nextLine();
@@ -65,28 +72,31 @@ public class Methodlar extends VeriBankasi {
         }
         Hasta hasta = new Hasta(++hastaNo, hastaAdi, hastaSadi, hastaDurumu, aciliyet);
         System.out.println(hasta);
-        doktorAta(hastaDurumu, doktorList, hasta);
+        hastaList.add(hasta);
+        doktorAta(hastaDurumu, doktorList, hastaAdi,hastaSadi);
 
     }
 
-    private static void doktorAta(String hastaDurumu, List<VeriBankasi> doktorList, Hasta hasta) {
+
+
+    private static void doktorAta(String hastaDurumu, List<VeriBankasi> doktorList,String hastaAdi,String hastaSadi ) {
         if (hastaDurumu.contains("Allerji")) {
-            System.out.println(hasta.getHastaAdi() + " " + hasta.getHastaSadi() + " doktoru : " + doktorList.stream()
+            System.out.println(hastaAdi + " " + hastaSadi + " doktoru : " + doktorList.stream()
                     .filter(t -> t.getDoktorUnvan().equals("Allergist")).collect(Collectors.toList()));
         } else if (hastaDurumu.contains("Bas agrisi")) {
-            System.out.println(hasta.getHastaAdi() + " " + hasta.getHastaSadi() + " doktoru : " + doktorList.stream()
+            System.out.println(hastaAdi + " " + hastaSadi + " doktoru : " + doktorList.stream()
                     .filter(t -> t.getDoktorUnvan().equals("Norolog")).collect(Collectors.toList()));
         } else if (hastaDurumu.contains("Diabet")) {
-            System.out.println(hasta.getHastaAdi() + " " + hasta.getHastaSadi() + " doktoru : " + doktorList.stream()
+            System.out.println(hastaAdi + " " + hastaSadi + " doktoru : " + doktorList.stream()
                     .filter(t -> t.getDoktorUnvan().equals("Genel cerrah")).collect(Collectors.toList()));
         } else if (hastaDurumu.contains("Sogukalginligi")) {
-            System.out.println(hasta.getHastaAdi() + " " + hasta.getHastaSadi() + " doktoru : " + doktorList.stream()
+            System.out.println(hastaAdi + " " + hastaSadi + " doktoru : " + doktorList.stream()
                     .filter(t -> t.getDoktorUnvan().equals("Cocuk doktoru")).collect(Collectors.toList()));
         } else if (hastaDurumu.contains("Migren")) {
-            System.out.println(hasta.getHastaAdi() + " " + hasta.getHastaSadi() + " doktoru : " + doktorList.stream()
+            System.out.println(hastaAdi + " " + hastaSadi + " doktoru : " + doktorList.stream()
                     .filter(t -> t.getDoktorUnvan().equals("Dahiliye")).collect(Collectors.toList()));
         } else if (hastaDurumu.contains("Kalphastaliklari")) {
-            System.out.println(hasta.getHastaAdi() + " " + hasta.getHastaSadi() + " doktoru : " + doktorList.stream()
+            System.out.println(hastaAdi + " " + hastaSadi + " doktoru : " + doktorList.stream()
                     .filter(t -> t.getDoktorUnvan().equals("Kardiolog")).collect(Collectors.toList()));
         }
 
@@ -95,6 +105,12 @@ public class Methodlar extends VeriBankasi {
     public static void hastaDurumu(List<String> durumlar) {
         AtomicInteger i = new AtomicInteger();
         durumlar.stream().forEach(t -> System.out.println(i.incrementAndGet() + "-" + t));
+    }
+
+    public static void hastaListesi(List<Hasta> hastaList) {
+        hastaList.
+                stream().forEach(t -> System.out.println(t+doktorAta(t.getHastaDurumu(),doktorList,t.getHastaAdi(),t.getHastaSadi())));
+
     }
 
 }
