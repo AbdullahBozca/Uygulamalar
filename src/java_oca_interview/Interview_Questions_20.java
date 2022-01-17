@@ -1,5 +1,7 @@
 package java_oca_interview;
 
+import java.util.Arrays;
+
 public class Interview_Questions_20 {
     /*
 
@@ -13,4 +15,24 @@ public class Interview_Questions_20 {
         output : 46,48
 
          */
+    public static void main(String[] args) {
+
+
+        int arr[] = {3, 67, 9, 2, 46, 55, 1};
+        int arr2[] = new int[2];
+        int fark = 0;
+        int enYakin = Integer.MAX_VALUE;
+        Arrays.sort(arr);
+        for (int i = 0; i < arr.length; i++) {
+            if (i < arr.length - 1) {
+                fark = arr[i + 1] - arr[i];
+                if (fark < enYakin) {
+                    enYakin = fark;
+                    arr2[0] = arr[i];
+                    arr2[1] = arr[i + 1];
+                }
+            }
+        }
+        System.out.println(Arrays.toString(arr2));
+    }
 }

@@ -129,6 +129,7 @@ public class Methodlar extends VeriBankasi {
         AtomicInteger i = new AtomicInteger();
         durumlar.stream().forEach(t -> System.out.println(i.incrementAndGet() + "-" + t));
 
+
     }
     public static void hastaListesi(List<Hasta> hastaList) {
         hastaList.
